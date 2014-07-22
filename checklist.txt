@@ -1,7 +1,8 @@
 Passos
 1 - Coletar todos os links de uma categoria (ex. carteiras)
  Dados do produto:
- * Código
+ * URL
+ * Código de Referência
  * Preço
  * Preço com desconto
  * Quantidade no estoque
