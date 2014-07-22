@@ -1,0 +1,10 @@
+Passos
+1 - Coletar todos os links de uma categoria (ex. carteiras)
+ Dados do produto:
+ * Código
+ * Preço
+ * Preço com desconto
+ * Quantidade no estoque
+ * Características
+ * Dimensões
+ * Fotos (lista)
