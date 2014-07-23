@@ -14,6 +14,7 @@ class CrawlerFornecedoresItem(scrapy.Item):
 
 class FeiraDaMadrugadaCarteiras(scrapy.Item):
 	url = scrapy.Field()
+	model = scrapy.Field()
 	refCode = scrapy.Field()
 	price = scrapy.Field()
 	discountPrice = scrapy.Field()
