@@ -9,7 +9,7 @@ from crawler_fornecedores.items import FeiraDaMadrugadaCarteiras
 
 class FeiraDaMadrugadaCarteirasSpider(CrawlSpider):
 	name = "feiradamadrugadacarteiras"
-	site = "feiradamadrugadasp.com.br"
+	site = "http://www.feiradamadrugadasp.com.br/"
 	start_urls = [
 		"http://www.feiradamadrugadasp.com.br/carteiras-femininas-c-2.html",
 		"http://www.feiradamadrugadasp.com.br/carteiras-femininas-c-2.html?page=2",
@@ -47,13 +47,13 @@ class FeiraDaMadrugadaCarteirasSpider(CrawlSpider):
 	def save_data(self, item):
 		path = '/tmp/test/'
 		destDir = path + item['model']
-		fileInfoName = item['refCode'] + '.txt'
+		fileInfoName = item['refCode']
 		fileDest = destDir + '/' + fileInfoName
 
 		if not(os.path.exists(destDir)):
 			os.mkdir(destDir)
 
-		with open (fileDest, 'w') as f:
+		with open (fileDest + '.txt', 'w') as f:
 			f.write(str(item['url'] + "\n"))
 			f.write(str(item['refCode'] + "\n"))
 			f.write(str(item['price'] + "\n"))
@@ -62,7 +62,12 @@ class FeiraDaMadrugadaCarteirasSpider(CrawlSpider):
 			f.write(str(item['description'] + "\n"))
 			f.write(str(item['dimensions'] + "\n"))
 
-		print destDir
+		for listItem in enumerate(item['photos']):
+			imageURL = self.site + listItem[1]
+
+			with open (fileDest + "-0" + str(listItem[0]) + ".jpg", 'wb') as imageFile:
+				imageFile.write(urllib.urlopen(imageURL).read())
+				print "OK"
 
 	def print_info(self, item):
 		print item['url']
