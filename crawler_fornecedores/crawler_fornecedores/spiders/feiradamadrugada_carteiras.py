@@ -27,8 +27,10 @@ class FeiraDaMadrugadaCarteirasSpider(CrawlSpider):
 
 		item['price'] = response.selector.xpath("//div[@class='elementos']/div[@class='valores']/text()").extract()[0].strip()
 		item['discountPrice'] = response.selector.xpath("//div[@class='elementos']/div[@class='valores']/span/span[@class='productSpecialPrice']/text()").extract()[0].strip()
-		inStock = response.selector.xpath("//div[@class='marg_top10']/span/text()").extract()[0]
-		item['inStock'] = re.match(r"[a-zA-Z-#]*[0-9-]*", inStock).group()
+		inStock = response.selector.xpath("//div[@class='marg_top10']/span/text()").extract()
+		item['inStock'] = 0
+		if inStock:
+			item['inStock'] = re.match(r"[a-zA-Z-#]*[0-9-]*", inStock[0]).group()
 		item['description'] = response.selector.xpath("string(//div[@class='desc3']/p[1])").extract()[0].strip()
 		item['dimensions'] = response.selector.xpath("//div[@class='desc3']/p[3]/text()").extract()[0].strip()
 
