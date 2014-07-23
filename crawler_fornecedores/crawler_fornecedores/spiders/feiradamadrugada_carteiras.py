@@ -1,5 +1,7 @@
 import scrapy
 import re
+import urllib
+import os
 
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
@@ -29,17 +31,38 @@ class FeiraDaMadrugadaCarteirasSpider(CrawlSpider):
 		item['price'] = response.selector.xpath("//div[@class='elementos']/div[@class='valores']/text()").extract()[0].strip()
 		item['discountPrice'] = response.selector.xpath("//div[@class='elementos']/div[@class='valores']/span/span[@class='productSpecialPrice']/text()").extract()[0].strip()
 		inStock = response.selector.xpath("//div[@class='marg_top10']/span/text()").extract()
-		item['inStock'] = 0
+		item['inStock'] = "0"
 		if inStock:
 			item['inStock'] = re.match(r"[a-zA-Z-#]*[0-9-]*", inStock[0]).group()
-		item['description'] = response.selector.xpath("string(//div[@class='desc3']/p[1])").extract()[0].strip()
-		item['dimensions'] = response.selector.xpath("//div[@class='desc3']/p[3]/text()").extract()[0].strip()
+		item['description'] = response.selector.xpath("string(//div[@class='desc3']/p[1])").extract()[0].strip().encode("utf-8")
+		item['dimensions'] = response.selector.xpath("//div[@class='desc3']/p[3]/text()").extract()[0].strip().encode("utf-8")
 
 		therePhotos = response.selector.xpath("//div[@class='prod_info']/div[@class='thumb']/a/@href").extract()
 		if therePhotos:
 			item['photos'] = therePhotos
 
-		self.print_info(item)
+		#self.print_info(item)
+		self.save_data(item)
+
+	def save_data(self, item):
+		path = '/tmp/test/'
+		destDir = path + item['model']
+		fileInfoName = item['refCode'] + '.txt'
+		fileDest = destDir + '/' + fileInfoName
+
+		if not(os.path.exists(destDir)):
+			os.mkdir(destDir)
+
+		with open (fileDest, 'w') as f:
+			f.write(str(item['url'] + "\n"))
+			f.write(str(item['refCode'] + "\n"))
+			f.write(str(item['price'] + "\n"))
+			f.write(str(item['discountPrice'] + "\n"))
+			f.write(str(item['inStock'] + "\n"))
+			f.write(str(item['description'] + "\n"))
+			f.write(str(item['dimensions'] + "\n"))
+
+		print destDir
 
 	def print_info(self, item):
 		print item['url']
