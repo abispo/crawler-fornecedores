@@ -23,7 +23,7 @@ class FeiraDaMadrugadaCarteiras(scrapy.Item):
 	dimensions =scrapy.Field()
 	photos = scrapy.Field()
 
-class FeiraDaMadrugadaBolsasFemininas(scrapy.Item):
+class FeiraDaMadrugadaBolsas(scrapy.Item):
 	url = scrapy.Field()
 	model = scrapy.Field()
 	refCode = scrapy.Field()

@@ -8,18 +8,14 @@ from scrapy.contrib.linkextractors import LinkExtractor
 from crawler_fornecedores.items import FeiraDaMadrugadaBolsas
 
 class FeiraDaMadrugadaCarteirasSpider(CrawlSpider):
-	name = "feiradamadrugadabolsasfemininas"
+	name = "feiradamadrugadabolsasverniz"
 	site = "http://www.feiradamadrugadasp.com.br/"
 	start_urls = [
-		"http://www.feiradamadrugadasp.com.br/bolsas-femininas-c-1.html",
-		"http://www.feiradamadrugadasp.com.br/bolsas-femininas-c-1.html?page=2",
-		"http://www.feiradamadrugadasp.com.br/bolsas-femininas-c-1.html?page=3",
-		"http://www.feiradamadrugadasp.com.br/bolsas-femininas-c-1.html?page=4",
-		"http://www.feiradamadrugadasp.com.br/bolsas-femininas-c-1.html?page=5"
+		"http://www.feiradamadrugadasp.com.br/bolsas-verniz-c-30.html",
 	]
 
 	rules = (
-		Rule(LinkExtractor(allow=["http://www\.feiradamadrugadasp\.com\.br/bolsa-"]), 'parse_page'),
+		Rule(LinkExtractor(allow=["http://www\.feiradamadrugadasp\.com\.br/bolsa-verniz"]), 'parse_page'),
 	)
 
 	def parse_page(self, response):
