@@ -22,3 +22,16 @@ class FeiraDaMadrugadaCarteiras(scrapy.Item):
 	description = scrapy.Field()
 	dimensions =scrapy.Field()
 	photos = scrapy.Field()
+
+class FeiraDaMadrugadaBolsasFemininas(scrapy.Item):
+	url = scrapy.Field()
+	model = scrapy.Field()
+	refCode = scrapy.Field()
+	price = scrapy.Field()
+	discountPrice = scrapy.Field()
+	inStock = scrapy.Field()
+	description = scrapy.Field()
+	typeOfMaterial = scrapy.Field()
+	color = scrapy.Field()
+	dimensions =scrapy.Field()
+	photos = scrapy.Field()
